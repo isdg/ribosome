@@ -15,3 +15,10 @@ LDFLAGS := $(LDFLAGS_$(BUILD))
 OBJDIR := build/$(BUILD)
 BINDIR := $(OBJDIR)/bin
 
+
+SRCS := $(wildcard src/*.c)
+OBJS := $(patsubst src/%.c,$(OBJDIR)/src/%.o,$(SRCS))
+
+TEST_SRCS := $(wildcard tests/*.c)
+TEST_OBJS := $(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
+TEST_BINS := $(patsubst tests/%.c,$(BINDIR)/%,$(TEST_SRCS))

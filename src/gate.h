@@ -1,7 +1,6 @@
 #ifndef RIBOSOME_GATE_H
 #define RIBOSOME_GATE_H
 
-#include <cstdint>
 #include <stdint.h>
 
 typedef uint8_t bit;

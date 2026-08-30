@@ -1,4 +1,3 @@
-#include <cstdint>
 #include "gate.h"
 #define BUS_MAX 32
 

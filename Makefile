@@ -25,6 +25,9 @@ TEST_SRCS := $(wildcard tests/*.c)
 TEST_OBJS := $(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS := $(patsubst tests/%.c,$(BINDIR)/%,$(TEST_SRCS))
 
+.PHONY: all test test-release clean
+.DEFAULT_GOAL := test
+
 all: $(TEST_BINS)
 
 $(OBJDIR)/%.o: %.c

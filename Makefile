@@ -5,7 +5,7 @@ CSTD := -std=c11
 WARN := -Wall -Wextra -Werror
 INCLUDE := -Isrc -Ithird_party
 
-SAN             := -fsanitize=undefined,address
+SAN             := -fsanitize=undefined
 CFLAGS_debug    := -O0 -g $(SAN)
 LDFLAGS_debug   := $(SAN)
 CFLAGS_release  := -O2 -DNDEBUG

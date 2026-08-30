@@ -22,4 +22,4 @@ bit _and(bit a, bit b) { return _not(nand(a, b)); }
 
 bit _or(bit a, bit b) { return nand(_not(a), _not(b)); }
 
-bit _xor(bit a, bit b) { return _or(_and(a, b), b); }
+bit _xor(bit a, bit b) { return _and(_or(a, b), nand(a, b)); }

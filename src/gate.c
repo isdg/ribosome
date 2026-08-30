@@ -22,4 +22,24 @@ bit _and(bit a, bit b) { return _not(nand(a, b)); }
 
 bit _or(bit a, bit b) { return nand(_not(a), _not(b)); }
 
-bit _xor(bit a, bit b) { return _and(_or(a, b), nand(a, b)); }
+bit _xor(bit a, bit b) {
+  bit c = nand(a, b);
+  return nand(nand(a, c), nand(b, c));
+}
+
+// a b s | yours | want | gates
+// 0 0 0 |   0   |  0   | 4  ok
+// 0 1 0 |   0   |  0   | 4  ok
+// 1 0 0 |   0   |  1   | 4  FAIL
+// 1 1 0 |   0   |  1   | 4  FAIL
+// 0 0 1 |   1   |  0   | 4  FAIL
+// 0 1 1 |   1   |  1   | 4  ok
+// 1 0 1 |   1   |  0   | 4  FAIL
+// 1 1 1 |   1   |  1   | 4  ok
+
+
+bit mux(bit a, bit b, bit sel) {
+  bit c = nand(b, sel);
+  bit d = nand(a, _not(sel));
+  return nand(c, d);
+}

@@ -22,3 +22,25 @@ OBJS := $(patsubst src/%.c,$(OBJDIR)/src/%.o,$(SRCS))
 TEST_SRCS := $(wildcard tests/*.c)
 TEST_OBJS := $(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS := $(patsubst tests/%.c,$(BINDIR)/%,$(TEST_SRCS))
+
+all: $(TEST_BINS)
+
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BINDIR)/%: $(OBJDIR)/tests/%.o $(OBJS)
+	@mkdir -p $(dir $@)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+test: $(TEST_BINS)
+	@for t in $(TEST_BINS); do echo "== $$t"; $$t || exit 1; done
+
+test-release:
+	@$(MAKE) --no-print-directory BUILD=release test
+
+clean:
+	rm -rf build
+
+-include $(OBJS:.o=.d) $(TEST_OBJS:.o=.d)
+

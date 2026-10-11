@@ -19,7 +19,6 @@ void bus_from_u32(uint32_t v, bit *out, int n) {
   }
 }
 
-/* TODO: stub */
 uint32_t bus_to_u32(const bit *in, int n) {
   (void)n;
 
@@ -38,9 +37,11 @@ uint32_t bus_to_u32(const bit *in, int n) {
   return u32;
 }
 
-/* TODO: stub */
 void bus_copy(const bit *src, bit *dst, int n) {
-  (void)src;
-  (void)dst;
-  (void)n;
+  int i = 0;
+
+  while (i < n) {
+    *(dst + i) = *(src + i);
+    i = i + 1;
+  }
 }

@@ -28,7 +28,12 @@ TEST_BINS := $(patsubst tests/%.c,$(BINDIR)/%,$(TEST_SRCS))
 .PHONY: all test test-release clean
 .DEFAULT_GOAL := test
 
-all: $(TEST_BINS)
+LSP_FLAGS := $(CSTD) $(WARN) $(INCLUDE)
+
+compile_flags.txt: Makefile
+	  printf '%s\n' $(LSP_FLAGS) > $@
+
+all: compile_flags.txt $(TEST_BINS)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
@@ -38,7 +43,7 @@ $(BINDIR)/%: $(OBJDIR)/tests/%.o $(OBJS)
 	@mkdir -p $(dir $@)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-test: $(TEST_BINS)
+test: compile_flags.txt $(TEST_BINS)
 	@for t in $(TEST_BINS); do echo "== $$t"; $$t || exit 1; done
 
 test-release:

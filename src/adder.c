@@ -33,3 +33,15 @@ void add(const bit *a, const bit *b, bit cin, bit *sum, int n, bit *cout,
 
   *cout = _cout;
 }
+
+/* TODO: stub */
+void addsub(const bit *a, const bit *b, bit sub, bit *sum, int n, bit *cout,
+            bit *cin_msb) {
+  (void)a;
+  (void)b;
+  (void)sub;
+  (void)sum;
+  (void)n;
+  (void)cout;
+  (void)cin_msb;
+}

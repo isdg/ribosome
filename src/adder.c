@@ -1,4 +1,5 @@
 #include "adder.h"
+#include "bus.h"
 #include "gate.h"
 
 void half_add(bit a, bit b, bit *sum, bit *carry) {
@@ -23,7 +24,7 @@ void add(const bit *a, const bit *b, bit cin, bit *sum, int n, bit *cout,
   int i = 0;
 
   bit c = cin;
-  bit _cout=c;
+  bit _cout = c;
   while (i < n) {
     *cin_msb = _cout;
     full_add(*(a + i), *(b + i), c, (sum + i), &_cout);
@@ -34,14 +35,15 @@ void add(const bit *a, const bit *b, bit cin, bit *sum, int n, bit *cout,
   *cout = _cout;
 }
 
-/* TODO: stub */
 void addsub(const bit *a, const bit *b, bit sub, bit *sum, int n, bit *cout,
             bit *cin_msb) {
-  (void)a;
-  (void)b;
-  (void)sub;
-  (void)sum;
-  (void)n;
-  (void)cout;
-  (void)cin_msb;
+  bit _eff_b[BUS_MAX];
+  int i = 0;
+
+  while (i < n) {
+    *(_eff_b + i) = _xor(*(b + i), sub);
+    i = i + 1;
+  }
+
+  add(a, _eff_b, sub, sum, n, cout, cin_msb);
 }

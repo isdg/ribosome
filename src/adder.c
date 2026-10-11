@@ -18,14 +18,18 @@ void full_add(bit a, bit b, bit cin, bit *sum, bit *cout) {
   *cout = _or(c1, c2);
 }
 
-/* TODO: stub */
 void add(const bit *a, const bit *b, bit cin, bit *sum, int n, bit *cout,
          bit *cin_msb) {
-  (void)a;
-  (void)b;
-  (void)cin;
-  (void)sum;
-  (void)n;
-  (void)cout;
-  (void)cin_msb;
+  int i = 0;
+
+  bit c = cin;
+  bit _cout=c;
+  while (i < n) {
+    *cin_msb = _cout;
+    full_add(*(a + i), *(b + i), c, (sum + i), &_cout);
+    c = _cout;
+    i = i + 1;
+  }
+
+  *cout = _cout;
 }

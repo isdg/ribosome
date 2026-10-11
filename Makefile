@@ -25,7 +25,7 @@ TEST_SRCS := $(wildcard tests/*.c)
 TEST_OBJS := $(patsubst tests/%.c,$(OBJDIR)/tests/%.o,$(TEST_SRCS))
 TEST_BINS := $(patsubst tests/%.c,$(BINDIR)/%,$(TEST_SRCS))
 
-.PHONY: all test test-release clean
+.PHONY: all test test-release clean format format-check
 .DEFAULT_GOAL := test
 
 LSP_FLAGS := $(CSTD) $(WARN) $(INCLUDE)
@@ -51,6 +51,14 @@ test-release:
 
 clean:
 	rm -rf build
+
+FMT_SRCS := $(SRCS) $(TEST_SRCS) $(wildcard src/*.h tests/*.h)
+
+format:
+	clang-format -i $(FMT_SRCS)
+
+format-check:
+	clang-format --dry-run --Werror $(FMT_SRCS)
 
 -include $(OBJS:.o=.d) $(TEST_OBJS:.o=.d)
 

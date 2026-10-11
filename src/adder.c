@@ -1,20 +1,21 @@
 #include "adder.h"
+#include "gate.h"
 
-/* TODO: stub */
 void half_add(bit a, bit b, bit *sum, bit *carry) {
-  (void)a;
-  (void)b;
-  (void)sum;
-  (void)carry;
+
+  *sum = _xor(a, b);
+  *carry = _and(a, b);
 }
 
-/* TODO: stub */
 void full_add(bit a, bit b, bit cin, bit *sum, bit *cout) {
-  (void)a;
-  (void)b;
-  (void)cin;
-  (void)sum;
-  (void)cout;
+  bit s1;
+  bit c1;
+
+  bit c2;
+
+  half_add(a, b, &s1, &c1);
+  half_add(s1, cin, sum, &c2);
+  *cout = _or(c1, c2);
 }
 
 /* TODO: stub */
